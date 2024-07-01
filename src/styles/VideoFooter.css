@@ -1,0 +1,20 @@
+.videoFooter_text {
+  position: absolute;
+  bottom: 0;
+  color: rgb(28, 231, 62);
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.videoFooter_text > h3 {
+  margin-left: 10px;
+  padding-bottom: 20px;
+  color: purple;
+}
+.videoFooter_text > h3 > button {
+  color: rgb(221, 17, 17);
+  font-weight: 900;
+  text-transform: inherit;
+}
+
+
