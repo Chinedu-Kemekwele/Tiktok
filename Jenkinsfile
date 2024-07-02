@@ -20,7 +20,7 @@ sh 'sudo docker build -t kemszeal/React-app:v1.0.0 .'
 stage('Test image') {
 steps {
 echo 'testing image...'
-sh 'sudo docker inspect - type=image kemszeal/React-app:v1.0.0'
+sh 'sudo docker inspect - type=image kemszeal/react-app:v1.0.0'
  }
 }
 
