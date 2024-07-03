@@ -1,39 +1,40 @@
-
-
 pipeline {
-agent any 
+agent any
 stages{
 stage('Checkout'){
 steps{
 echo 'fetching code...'
 git url: 'https://github.com/Chinedu-Kemekwele/Tiktok.git' ,branch : 'main'
- }
-}
-
-stage('Build'){
+   }
+  }
+  
+  stage('Build'){
 steps{
 echo 'building image using Dockerfile...'
-sh 'docker build -t kemszeal/react-app:v1.0.0 .'
- }
-}
-
-stage('Test image') {
+ sh 'docker build . -t kemszeal/react-app:v1.0.0'
+   }
+  }
+  
+  stage('Test image') {
 steps {
 echo 'testing image...'
-sh 'docker inspect kemszeal/react-app:v1.0.0'
- }
-}
-
-stage('Push'){
-steps{
-echo 'docker login, image tag and pushing image to registry ...'
- def dockerHubCredentials = credentials('docker-hub-credentials-id')
-                    withDockerRegistry(credentialsId: dockerHubCredentials, url: 'https://index.docker.io/v1/') {
-			sh 'docker image tag kemszeal/react-app:v1.0.0 /kemszeal/React-app:latest'
-			sh 'docker image push kemszeal/react-app:latest'
+sh 'docker image inspect kemszeal/react-app:v1.0.0'
+   }
   }
- }
-}
+  
+  stage('Push'){
+steps{
+script {
+    echo 'docker login, image tag and pushing image to registry ...'
+                 
+		withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_TOKEN')]) {
+                sh 'docker login -u kemzeal -p \${DOCKER_TOKEN}'
+			    sh 'docker image tag kemszeal/react-app:v1.0.0 kemzeal/react-app:latest'
+			    sh 'docker image push kemzeal/react-app:latest'
+                 }
+                } 
+              }       
+            }
 
  stage('Login to Docker Hub') {
             steps {
