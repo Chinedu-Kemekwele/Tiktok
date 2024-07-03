@@ -28,9 +28,10 @@ stage('Push'){
 steps{
 echo 'docker login, image tag and pushing image to registry ...'
  def dockerHubCredentials = credentials('docker-hub-credentials-id')
-                    withDockerRegistry(credentialsId: dockerHubCredentials, url: 'https://index.docker.io/v1/')
+                    withDockerRegistry(credentialsId: dockerHubCredentials, url: 'https://index.docker.io/v1/') {
 			sh 'docker image tag kemszeal/react-app:v1.0.0 /kemszeal/React-app:latest'
 			sh 'docker image push kemszeal/react-app:latest'
+  }
  }
 }
 
