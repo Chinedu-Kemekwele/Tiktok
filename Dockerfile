@@ -1,6 +1,6 @@
 
 
-FROM node:lts-alpine3.20
+FROM node:10.15.1-alpine
 RUN mkdir -p /app
 WORKDIR /app
 COPY . .
